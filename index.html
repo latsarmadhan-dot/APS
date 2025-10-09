@@ -89,84 +89,42 @@
             <iframe id="googleFormIframe" src="" class="w-full h-[600px] rounded-b-xl border-0"></iframe>
         </div>
         </div>
-
+        <!-- Popup Pengumuman -->
+        <div id="popupPengumuman" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full mx-4 relative animate-fadeIn">
+            <!-- Tombol Tutup -->
+            <button onclick="tutupPengumuman()" class="absolute top-3 right-3 text-gray-500 hover:text-red-500 text-2xl font-bold">&times;</button>
+            
+            <!-- Isi Popup -->
+            <div class="p-6 text-center">
+                <h2 class="text-2xl font-bold text-blue-700 mb-4">📢 Pengumuman Penting</h2>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    Perencanaan Peningkatan APS melalui Analisis Data dan Penguatan Ekosistem Sekolah Angkatan<strong>Pertama</strong> akan dimulai pada 
+                    <strong>Senin, 13 Oktober 2025</strong> di 
+                    <strong>Hotel Aria Barito Banjarmasin</strong>.
+                </p>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    Perencanaan Peningkatan APS melalui Analisis Data dan Penguatan Ekosistem Sekolah Angkatan<strong>Kedua</strong> akan dimulai pada 
+                    <strong>Rabu, 15 Oktober 2025</strong> di 
+                    <strong>Royal Jelita Hotel Banjarmasin</strong>.
+                </p>
+                <p class="text-gray-600 mb-6">
+                    Mohon peserta membawa <strong>laptop</strong> dan <strong>data sekolah terbaru</strong> untuk kegiatan analisis.
+                </p>
+                <a href=""
+                    target="_blank"
+                    class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition duration-200">
+                    📥 Unduh Panduan Peserta
+                </a>
+            </div>
+        </div>
+        </div>
 
 
     </main>
 
     <script>
-    
 
-        // Material functions
-        function downloadMaterial(materialType) {
-            const materials = {
-                'analisis-data': 'Panduan_Analisis_Data_APS.pdf',
-                'ekosistem-sekolah': 'Strategi_Penguatan_Ekosistem_Sekolah.pdf',
-                'perencanaan-strategis': 'Template_Perencanaan_Strategis_APS.pdf',
-                'implementasi-program': 'Panduan_Implementasi_Program_APS.pdf',
-                'evaluasi-monitoring': 'Instrumen_Evaluasi_Monitoring_APS.pdf',
-                'sertifikasi': 'Template_Sertifikat_Workshop_APS.pdf'
-            };
-            
-            const fileName = materials[materialType] || 'Materi_Workshop_APS.pdf';
-            alert(`Mengunduh: ${fileName}\n\nDalam implementasi nyata, file akan diunduh secara otomatis.`);
-        }
-
-        function viewMaterial(materialType) {
-            const materials = {
-                'analisis-data': 'Panduan Analisis Data APS',
-                'ekosistem-sekolah': 'Strategi Penguatan Ekosistem Sekolah',
-                'perencanaan-strategis': 'Template Perencanaan Strategis APS',
-                'implementasi-program': 'Panduan Implementasi Program APS',
-                'evaluasi-monitoring': 'Instrumen Evaluasi & Monitoring APS',
-                'sertifikasi': 'Template Sertifikat Workshop APS'
-            };
-            
-            const materialName = materials[materialType] || 'Materi Workshop APS';
-            alert(`Membuka: ${materialName}\n\nDalam implementasi nyata, materi akan dibuka di tab baru atau viewer PDF.`);
-        }
-
-        // Documentation functions
-        function uploadDocumentation() {
-            const fileInput = document.getElementById('documentationFile');
-            const category = document.getElementById('documentationCategory').value;
-            
-            if (!fileInput.files.length) {
-                alert('Silakan pilih file terlebih dahulu!');
-                return;
-            }
-            
-            const files = Array.from(fileInput.files);
-            const fileNames = files.map(f => f.name).join(', ');
-            
-            alert(`Upload berhasil!\n\nFile: ${fileNames}\nKategori: ${category}\n\nDalam implementasi nyata, file akan diupload ke server.`);
-            
-            // Reset form
-            fileInput.value = '';
-            document.getElementById('documentationCategory').value = 'pembukaan';
-        }
-
-        function viewDocumentation(docId) {
-            const docs = {
-                'pembukaan-1': 'Foto Pembukaan Workshop Batch 1',
-                'analisis-data-1': 'Video Sesi Analisis Data Batch 1',
-                'workshop-praktik-1': 'Foto Workshop Praktik Batch 1'
-            };
-            
-            const docName = docs[docId] || 'Dokumentasi Workshop';
-            alert(`Membuka: ${docName}\n\nDalam implementasi nyata, dokumentasi akan dibuka di lightbox atau viewer.`);
-        }
-
-        function downloadDocumentation(docId) {
-            const docs = {
-                'pembukaan-1': 'Pembukaan_Workshop_Batch1.jpg',
-                'analisis-data-1': 'Sesi_Analisis_Data_Batch1.mp4',
-                'workshop-praktik-1': 'Workshop_Praktik_Batch1.jpg'
-            };
-            
-            const fileName = docs[docId] || 'Dokumentasi_Workshop.jpg';
-            alert(`Mengunduh: ${fileName}\n\nDalam implementasi nyata, file akan diunduh secara otomatis.`);
-        }
 
         // Select batch
         function selectBatch(batchNumber) {
@@ -330,6 +288,38 @@
 
     jadwalGrid.appendChild(card);
   });
+</script>
+<!-- Animasi Fade In -->
+<style>
+@keyframes fadeIn {
+  from {opacity: 0; transform: scale(0.95);}
+  to {opacity: 1; transform: scale(1);}
+}
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+</style>
+
+<script>
+// === Fungsi untuk menampilkan dan menutup popup ===
+function tampilkanPengumuman() {
+  document.getElementById("popupPengumuman").classList.remove("hidden");
+}
+
+function tutupPengumuman() {
+  document.getElementById("popupPengumuman").classList.add("hidden");
+}
+
+// === Munculkan popup otomatis setelah halaman selesai dimuat ===
+window.addEventListener("load", () => {
+  setTimeout(tampilkanPengumuman, 1000); // tampil setelah 1 detik
+});
+
+// Tutup jika klik di luar area popup
+window.addEventListener("click", (e) => {
+  const popup = document.getElementById("popupPengumuman");
+  if (e.target === popup) tutupPengumuman();
+});
 </script>
 </body>
 </html>
